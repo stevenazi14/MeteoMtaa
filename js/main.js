@@ -90,6 +90,8 @@ function showLoading(location) {
   selectedForecast = null;
   $('#location-name').textContent = `${location.name}${location.country ? `, ${location.country}` : ''}`;
   $('#location-time').textContent = location.timezone.replaceAll('_', ' ');
+  updateGreeting(location.timezone);
+  updateToday(location.timezone);
   $('#weather-description').textContent = 'Finding the latest forecast…';
   $('#sun-face').textContent = '☁';
   $('#updated-stamp').textContent = 'Waiting for data';
@@ -234,6 +236,8 @@ function renderForecast() {
   const todaysSun = daily.find((day) => dateKey(day.time, timezone) === localKey) || daily[0];
   const nearestHour = selectedForecast.hourly.find((hour) => hour.time >= current.time) || selectedForecast.hourly[0];
   $('#location-name').textContent = `${selectedLocation.name}${selectedLocation.country ? `, ${selectedLocation.country}` : ''}`;
+  updateGreeting(timezone);
+  updateToday(timezone);
   $('#location-time').textContent = new Intl.DateTimeFormat('en', { timeZone: timezone, timeZoneName: 'short' }).formatToParts(new Date(current.time * 1000)).find((part) => part.type === 'timeZoneName')?.value || timezone;
   $('#weather-description').textContent = condition.text;
   $('#condition-label').textContent = condition.label;
@@ -384,8 +388,27 @@ function updateActivity(button) {
   });
   renderPlanner();
 }
-function updateToday() {
-  $('#today-label').textContent = new Intl.DateTimeFormat('en-KE', { weekday: 'long', month: 'long', day: 'numeric' }).format(new Date()).toLocaleUpperCase() + ' · YOUR LOCAL WEATHER';
+function localHour(timezone) {
+  try {
+    return Number(new Intl.DateTimeFormat('en-GB', { timeZone: timezone, hour: 'numeric', hourCycle: 'h23' }).format(new Date()));
+  } catch {
+    return new Date().getHours();
+  }
+}
+function updateGreeting(timezone = selectedForecast?.timezone || selectedLocation.timezone) {
+  const hour = localHour(timezone);
+  const greeting = hour >= 5 && hour < 12 ? 'Good morning'
+    : hour >= 12 && hour < 17 ? 'Good afternoon' : 'Good evening';
+  $('#greeting').textContent = greeting;
+}
+function updateToday(timezone = selectedForecast?.timezone || selectedLocation.timezone) {
+  let formattedDate;
+  try {
+    formattedDate = new Intl.DateTimeFormat('en-KE', { weekday: 'long', month: 'long', day: 'numeric', timeZone: timezone }).format(new Date());
+  } catch {
+    formattedDate = new Intl.DateTimeFormat('en-KE', { weekday: 'long', month: 'long', day: 'numeric' }).format(new Date());
+  }
+  $('#today-label').textContent = `${formattedDate.toLocaleUpperCase()} · YOUR LOCAL WEATHER`;
 }
 async function addCompareCity() {
   const query = $('#compare-search').value.trim();
@@ -485,7 +508,13 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || ['localho
 window.addEventListener('offline', () => setDataStatus('Offline · trying saved forecast', 'stale'));
 window.addEventListener('online', () => { if (selectedLocation) loadForecast(selectedLocation); });
 
+updateGreeting();
 updateToday();
+window.setInterval(() => {
+  const timezone = selectedForecast?.timezone || selectedLocation.timezone;
+  updateGreeting(timezone);
+  updateToday(timezone);
+}, 60_000);
 $('#rain-limit-value').textContent = `${$('#rain-limit').value}%`;
 $('#wind-limit-value').textContent = `${$('#wind-limit').value} km/h`;
 $('#heat-limit-value').textContent = `${$('#heat-limit').value}°C`;

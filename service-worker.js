@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'meteomtaa-shell-v3';
+﻿const CACHE_NAME = 'meteomtaa-shell-v4';
 const APP_SHELL = [
   './',
   './index.html',
@@ -42,6 +42,3 @@ self.addEventListener('fetch', (event) => {
     return cached || fresh;
   }));
 });
-
-
-
