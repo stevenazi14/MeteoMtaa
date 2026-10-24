@@ -1,0 +1,63 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101c32">
+  <meta name="description" content="Live weather and practical daily activity suggestions for Kenya and beyond.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="MeteoMtaa">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <title>MeteoMtaa — Your day, weather-wise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="MeteoMtaa home"><span class="brand-mark">☼</span><span>Meteo<span class="brand-accent">Mtaa</span><small>WEATHER, YOUR WAY</small></span></a>
+      <div class="nav-label">YOUR SPACE</div>
+      <nav class="nav-links">
+        <a class="nav-link active" href="#home"><span class="nav-icon">⌂</span>Overview</a>
+        <a class="nav-link" href="#hourly"><span class="nav-icon">◷</span>Hourly forecast</a>
+        <a class="nav-link" href="#planner"><span class="nav-icon">✳</span>Weather planner</a>
+        <a class="nav-link" href="#compare"><span class="nav-icon">⇄</span>Mtaa compare</a>
+      </nav>
+      <div class="side-bottom"><div class="side-weather"><span class="side-orb">☀</span><div><strong>Make today count.</strong><p>Your neighbourhood forecast, at a glance.</p></div></div><div class="sidebar-foot">BUILT FOR LIFE IN KENYA <span>✦</span></div></div>
+    </aside>
+
+    <main id="home" class="main-content">
+      <header class="topbar"><div><div class="eyebrow" id="today-label">YOUR LOCAL WEATHER</div><h1>Good morning, <span>neighbour.</span></h1></div><div class="top-actions"><span class="preview-pill" id="app-status"><i></i> LOADING WEATHER</span><button class="unit-toggle" id="unit-toggle" aria-label="Switch temperature unit"><span class="chosen">°C</span><span>°F</span></button><button class="avatar" aria-label="Preferences">M</button></div></header>
+
+      <section class="search-row" aria-label="Location search"><span class="search-icon">⌕</span><label class="sr-only" for="city-search">Search a city</label><input id="city-search" type="search" placeholder="Search any city… try Nairobi, Mombasa, Kisumu" autocomplete="off" aria-controls="search-results"><button id="search-button" class="search-button">Find my weather <span>→</span></button></section>
+      <div id="search-results" class="search-results" role="listbox" aria-label="Matching locations" hidden></div>
+
+      <div class="location-line"><span class="location-pin">⌖</span><strong id="location-name">Nairobi, Kenya</strong><span class="location-sep">·</span><span id="location-time">Local time</span><button id="favorite-button" class="favorite-button" aria-pressed="false"><span>☆</span> Save place</button><span class="live-note" id="data-status" role="status">Connecting to live weather…</span></div>
+
+      <section class="hero-grid" aria-label="Current conditions">
+        <article class="current-card"><div class="hero-glow"></div><div class="current-top"><div><div class="card-kicker">RIGHT NOW <span class="sparkle">✦</span></div><h2 id="weather-description">Loading live weather…</h2><p class="feels-line">Feels like <strong id="feels-like">—</strong> <span>·</span> Live conditions for your location</p></div><div class="sun-art" aria-hidden="true"><span class="sun-halo"></span><span class="sun-face" id="sun-face">☀</span><span class="cloud cloud-one">☁</span><span class="cloud cloud-two">☁</span></div></div><div class="temperature-row"><div id="current-temp" class="temperature">—<span>°</span></div><div class="condition-tag"><span>☼</span><span id="condition-label">Loading conditions</span></div></div><div class="hero-bottom"><span>☼&nbsp; Sunrise <b id="sunrise">—</b></span><span class="hero-divider"></span><span>☾&nbsp; Sunset <b id="sunset">—</b></span><span class="updated-stamp" id="updated-stamp">Waiting for data</span></div></article>
+        <div class="stat-stack"><article class="stat-card humidity"><div class="stat-icon">◉</div><div><span class="stat-name">HUMIDITY</span><strong id="humidity">—<span>%</span></strong><small>Live observation</small></div><div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article><article class="stat-card wind"><div class="stat-icon">〰</div><div><span class="stat-name">WIND</span><strong id="wind">— <span>km/h</span></strong><small>Live observation</small></div><div class="wind-arrows" aria-hidden="true">↗<br>↗</div></article><article class="stat-card rain"><div class="stat-icon">♧</div><div><span class="stat-name">RAIN CHANCE</span><strong id="rain">—<span>%</span></strong><small>Chance in the next forecast hour</small></div><div class="rain-ring" aria-hidden="true"><span>☂</span></div></article></div>
+      </section>
+
+      <section class="section-block" id="hourly"><div class="section-heading"><div><div class="eyebrow">THE DAY AHEAD</div><h2>Today, hour by hour <span class="heading-spark">✦</span></h2></div><button class="text-button" id="hour-scroll">See later hours <span>→</span></button></div><div class="hourly-strip" id="hourly-strip" aria-label="Hourly forecast"></div></section>
+
+      <section class="lower-grid"><article class="panel week-panel"><div class="section-heading compact"><div><div class="eyebrow">PLAN A LITTLE AHEAD</div><h2>Next 5 days</h2></div><span class="week-badge">THIS WEEK <span>↗</span></span></div><div class="week-list" id="week-list"></div><div class="week-footer">A little sunshine goes a long way <span>☀</span></div></article>
+        <article class="panel change-panel"><div class="eyebrow">FORECAST CHANGE LENS <span class="live-dot"></span></div><h2>What’s shifting?</h2><p class="panel-sub">Updates from the forecast for this location.</p><div id="change-insights" aria-live="polite"><p class="loading-note">Waiting for current forecast…</p></div><div id="activity-suggestion" class="activity-suggestion" hidden></div></article></section>
+
+      <section class="feature-grid" id="planner"><article class="planner-card"><div class="feature-icon planner-icon">✳</div><div class="feature-copy"><div class="eyebrow">MADE FOR YOUR PLANS</div><h2>Find your weather window</h2><p>Choose an activity and set your comfort limits. The planner ranks suitable forecast hours and explains each match.</p><div class="activity-chips" role="group" aria-label="Choose an activity"><button class="activity-chip selected" data-activity="laundry" aria-pressed="true">◌ Laundry</button><button class="activity-chip" data-activity="walk" aria-pressed="false">↗ Walk or run</button><button class="activity-chip" data-activity="garden" aria-pressed="false">❋ Gardening</button><button class="activity-chip" data-activity="event" aria-pressed="false">✦ Outdoor plans</button></div><div class="planner-controls" aria-label="Planner settings"><label class="planner-select-label" for="planner-period">Time of day</label><select id="planner-period"><option value="any">Any time</option><option value="morning">Morning · before noon</option><option value="afternoon">Afternoon · noon onwards</option></select><label class="threshold-control" for="rain-limit"><span>Max rain chance</span><output id="rain-limit-value">25%</output><input id="rain-limit" type="range" min="0" max="80" value="25" step="5"></label><label class="threshold-control" for="wind-limit"><span>Max wind</span><output id="wind-limit-value">20 km/h</output><input id="wind-limit" type="range" min="5" max="50" value="20" step="1"></label><label class="threshold-control" for="heat-limit"><span>Max temperature (°C)</span><output id="heat-limit-value">30°C</output><input id="heat-limit" type="range" min="15" max="40" value="30" step="1"></label></div><div class="planner-results" id="planner-results" aria-live="polite"></div><small class="disclaimer">Guidance based on forecast conditions, not a safety guarantee. Weather can change.</small></div><div class="planner-decoration" aria-hidden="true"><div class="deco-sun">☀</div><div class="deco-cloud">☁</div><div class="deco-spark">✦</div></div></article>
+      <article class="compare-card" id="compare"><div class="feature-icon compare-icon">⇄</div><div class="eyebrow">MTAA COMPARE</div><h2>Your places, side by side</h2><p>Compare live conditions for up to three locations.</p><div class="compare-cities" id="compare-cities"><div class="compare-empty">Live comparisons will appear when a forecast loads.</div></div><div class="compare-add-row"><label class="sr-only" for="compare-search">City to compare</label><input id="compare-search" type="search" placeholder="Add a city to compare…"><button id="add-compare" class="add-place">＋ Add city</button></div></article></section>
+
+      <footer class="footer"><span class="footer-brand">☼ MeteoMtaa</span><span>Weather for real life, right around the corner.</span><span class="attribution">Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a>. Location data by <a href="https://www.geonames.org/" target="_blank" rel="noreferrer">GeoNames</a>.</span></footer>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </main>
+  </div>
+</body>
+</html>
+
+
+

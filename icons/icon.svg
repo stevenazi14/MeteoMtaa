@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#101d34"/>
+  <circle cx="256" cy="238" r="104" fill="#ffb866"/>
+  <g fill="#ffb866">
+    <path d="M244 66h24v48h-24zM244 362h24v48h-24zM84 226h48v24H84zM380 226h48v24h-48zM130 111l34 34-17 17-34-34zM365 346l34 34-17 17-34-34zM365 145l17-17 34 34-17 17zM113 380l34-34 17 17-34 34z"/>
+  </g>
+  <path d="M158 344a70 70 0 0 1 135-24 56 56 0 0 1 50 24z" fill="#f4f7fb"/>
+  <text x="256" y="454" fill="#f4f7fb" text-anchor="middle" font-family="Arial,sans-serif" font-size="45" font-weight="700">MTAA</text>
+</svg>
